@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────── */
+
+:root {
+  /* Surfaces */
+  --color-surface: oklch(97.5% 0.004 80);
+  --color-surface-alt: oklch(94% 0.006 80);
+
+  /* Text */
+  --color-text: oklch(18% 0.01 260);
+  --color-text-muted: oklch(46% 0.01 260);
+
+  /* Accents */
+  --color-accent-eng: oklch(52% 0.19 262);
+  --color-accent-music: oklch(68% 0.17 75);
+
+  /* Borders */
+  --color-border: oklch(88% 0.005 260);
+
+  /* Typography scale */
+  --text-hero: clamp(3.5rem, 1.5rem + 7vw, 8rem);
+  --text-h2: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  --text-h3: clamp(1.25rem, 0.9rem + 1vw, 1.75rem);
+  --text-body: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
+  --text-small: 0.875rem;
+
+  /* Spacing */
+  --space-section: clamp(5rem, 3rem + 6vw, 10rem);
+  --space-lg: clamp(2rem, 1rem + 3vw, 4rem);
+  --space-md: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  --space-sm: 0.75rem;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────────────── */
+
+[data-theme="dark"] {
+  --color-surface: oklch(14% 0.01 260);
+  --color-surface-alt: oklch(18% 0.01 260);
+  --color-text: oklch(92% 0.005 80);
+  --color-text-muted: oklch(62% 0.01 260);
+  --color-accent-eng: oklch(66% 0.18 262);
+  --color-accent-music: oklch(74% 0.16 75);
+  --color-border: oklch(28% 0.01 260);
+}
+
+/* ─── Tailwind Theme Integration ─────────────────────────────────────── */
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+body {
+  font-family: var(--font-sans, sans-serif);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition:
+    background-color var(--duration-normal) var(--ease-out-expo),
+    color var(--duration-normal) var(--ease-out-expo);
+  min-height: 100dvh;
+}
+
+::selection {
+  background-color: var(--color-accent-eng);
+  color: oklch(97% 0.004 80);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─── Focus Styles ───────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-eng);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Skip Link ──────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent-eng);
+  color: white;
+  border-radius: 0 0 4px 4px;
+  font-size: var(--text-small);
+  font-weight: 600;
+  z-index: 9999;
+  transition: top var(--duration-fast);
+}
+
+.skip-link:focus {
+  top: 0;
+}
