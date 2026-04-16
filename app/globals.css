@@ -1,100 +1,73 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens ──────────────────────────────────────────────────── */
+/* ─── Terminal Design Tokens ─────────────────────────────────────────── */
 
 :root {
-  /* Surfaces */
-  --color-surface: oklch(97.5% 0.004 80);
-  --color-surface-alt: oklch(94% 0.006 80);
-
-  /* Text */
-  --color-text: oklch(18% 0.01 260);
-  --color-text-muted: oklch(46% 0.01 260);
-
-  /* Accents */
-  --color-accent-eng: oklch(52% 0.19 262);
-  --color-accent-music: oklch(68% 0.17 75);
-
-  /* Borders */
-  --color-border: oklch(88% 0.005 260);
-
-  /* Typography scale */
-  --text-hero: clamp(3.5rem, 1.5rem + 7vw, 8rem);
-  --text-h2: clamp(1.75rem, 1rem + 2.5vw, 3rem);
-  --text-h3: clamp(1.25rem, 0.9rem + 1vw, 1.75rem);
-  --text-body: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
-  --text-small: 0.875rem;
-
-  /* Spacing */
-  --space-section: clamp(5rem, 3rem + 6vw, 10rem);
-  --space-lg: clamp(2rem, 1rem + 3vw, 4rem);
-  --space-md: clamp(1rem, 0.5rem + 1.5vw, 2rem);
-  --space-sm: 0.75rem;
+  --t-bg:          #0a0a0a;
+  --t-surface:     #111111;
+  --t-surface-2:   #161616;
+  --t-border:      #1e1e1e;
+  --t-border-2:    #2a2a2a;
+  --t-accent:      #60a5fa;  /* blue — primary highlight */
+  --t-accent-dim:  #3b82f6;
+  --t-accent-2:    #818cf8;  /* indigo — secondary highlight */
+  --t-cyan:        #7dd3fc;
+  --t-red:         #f87171;
+  --t-text:        #c8c8c8;
+  --t-text-muted:  #5a5a5a;
+  --t-text-dim:    #3a3a3a;
+  --t-white:       #e8e8e8;
 
   /* Motion */
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 600ms;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ─── Dark Mode ─────────────────────────────────────────────────────── */
-
-[data-theme="dark"] {
-  --color-surface: oklch(14% 0.01 260);
-  --color-surface-alt: oklch(18% 0.01 260);
-  --color-text: oklch(92% 0.005 80);
-  --color-text-muted: oklch(62% 0.01 260);
-  --color-accent-eng: oklch(66% 0.18 262);
-  --color-accent-music: oklch(74% 0.16 75);
-  --color-border: oklch(28% 0.01 260);
+  --duration-fast:   120ms;
+  --duration-normal: 240ms;
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Tailwind Theme Integration ─────────────────────────────────────── */
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-/* ─── Base Styles ────────────────────────────────────────────────────── */
+/* ─── Base ───────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
+  background-color: var(--t-bg);
+  color: var(--t-text);
+  font-size: 14px;
+  line-height: 1.6;
   scroll-behavior: smooth;
-  background-color: var(--color-surface);
-  color: var(--color-text);
 }
 
 body {
-  font-family: var(--font-sans, sans-serif);
-  font-size: var(--text-body);
-  line-height: 1.7;
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  transition:
-    background-color var(--duration-normal) var(--ease-out-expo),
-    color var(--duration-normal) var(--ease-out-expo);
-  min-height: 100dvh;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  background-color: var(--t-bg);
+  color: var(--t-text);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: var(--color-accent-eng);
-  color: oklch(97% 0.004 80);
+  background-color: rgba(96,165,250,0.3);
+  color: var(--t-white);
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* ─── Focus Styles ───────────────────────────────────────────────────── */
 
 :focus-visible {
-  outline: 2px solid var(--color-accent-eng);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline: 1px solid var(--t-accent);
+  outline-offset: 2px;
 }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--t-border-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t-text-muted); }
 
 /* ─── Skip Link ──────────────────────────────────────────────────────── */
 
@@ -103,15 +76,89 @@ body {
   top: -100%;
   left: 1rem;
   padding: 0.5rem 1rem;
-  background: var(--color-accent-eng);
-  color: white;
+  background: var(--t-accent);
+  color: #000;
   border-radius: 0 0 4px 4px;
-  font-size: var(--text-small);
+  font-size: 12px;
   font-weight: 600;
   z-index: 9999;
   transition: top var(--duration-fast);
 }
+.skip-link:focus { top: 0; }
 
-.skip-link:focus {
-  top: 0;
+/* ─── CRT scanline overlay ───────────────────────────────────────────── */
+
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* ─── Terminal cursor blink ──────────────────────────────────────────── */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--t-accent);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── Sheet music background (experience section) ────────────────────── */
+
+.sheet-music-bg {
+  position: relative;
+}
+
+.sheet-music-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 10px,
+      rgba(255,255,255,0.04) 10px,
+      rgba(255,255,255,0.04) 11px,
+      transparent 11px,
+      transparent 24px,
+      rgba(255,255,255,0.04) 24px,
+      rgba(255,255,255,0.04) 25px,
+      transparent 25px,
+      transparent 38px,
+      rgba(255,255,255,0.04) 38px,
+      rgba(255,255,255,0.04) 39px,
+      transparent 39px,
+      transparent 52px,
+      rgba(255,255,255,0.04) 52px,
+      rgba(255,255,255,0.04) 53px,
+      transparent 53px,
+      transparent 66px,
+      rgba(255,255,255,0.04) 66px,
+      rgba(255,255,255,0.04) 67px,
+      transparent 67px,
+      transparent 80px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sheet-music-bg > * {
+  position: relative;
+  z-index: 1;
 }

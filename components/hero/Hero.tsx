@@ -1,142 +1,151 @@
 "use client"
 
-import { motion, type Variants } from "framer-motion"
-import { useReducedMotion } from "@/hooks/useReducedMotion"
-import { ScrollIndicator } from "@/components/ui/ScrollIndicator"
+import { useEffect, useState } from "react"
+import { socialLinks } from "@/lib/data"
 
-const WORDS = ["Sam", "Zhuu."]
-
-const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
-
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
-}
-
-const wordVariants: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
-}
-
-const subtitleVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE, delay: 0.55 } },
-}
-
-const ruleVariants: Variants = {
-  hidden: { scaleX: 0, originX: 0 },
-  visible: { scaleX: 1, transition: { duration: 0.8, ease: EASE, delay: 0.75 } },
-}
+const ROLES = [
+  "mechatronics engineer",
+  "software developer",
+  "robotics builder",
+  "musician",
+  "autonomous systems",
+]
 
 export function Hero() {
-  const reduced = useReducedMotion()
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [displayed, setDisplayed] = useState("")
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    const target = ROLES[roleIndex]
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (!deleting && displayed.length < target.length) {
+      timeout = setTimeout(() => {
+        setDisplayed(target.slice(0, displayed.length + 1))
+      }, 60)
+    } else if (!deleting && displayed.length === target.length) {
+      timeout = setTimeout(() => setDeleting(true), 2200)
+    } else if (deleting && displayed.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayed(displayed.slice(0, -1))
+      }, 35)
+    } else if (deleting && displayed.length === 0) {
+      setDeleting(false)
+      setRoleIndex((i) => (i + 1) % ROLES.length)
+    }
+
+    return () => clearTimeout(timeout)
+  }, [displayed, deleting, roleIndex])
 
   return (
     <section
-      aria-labelledby="hero-heading"
+      id="hero"
       style={{
-        minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        paddingTop: "6rem",
-        paddingBottom: "4rem",
-        paddingInline: "clamp(1.25rem, 5vw, 4rem)",
-        maxWidth: "72rem",
+        justifyContent: "flex-start",
+        paddingTop: "clamp(6rem, 15vh, 10rem)",
+        paddingBottom: "clamp(4rem, 8vh, 6rem)",
+        paddingInline: "clamp(1.25rem, 5vw, 3rem)",
+        maxWidth: "900px",
         marginInline: "auto",
         width: "100%",
-        position: "relative",
       }}
     >
-      {/* Label */}
-      <motion.p
-        initial={reduced ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "var(--text-small)",
-          color: "var(--color-accent-eng)",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          marginBottom: "1.5rem",
-        }}
-      >
-        Mechatronics Engineering · University of Waterloo
-      </motion.p>
-
-      {/* Hero name */}
-      <motion.h1
+      <h1
         id="hero-heading"
-        variants={reduced ? undefined : containerVariants}
-        initial={reduced ? false : "hidden"}
-        animate="visible"
         style={{
-          fontSize: "var(--text-hero)",
+          fontSize: "clamp(2.8rem, 1rem + 6vw, 5.5rem)",
           fontWeight: 700,
+          color: "var(--t-white)",
+          margin: "0 0 1rem",
+          lineHeight: 1.05,
           letterSpacing: "-0.03em",
-          lineHeight: 0.95,
-          color: "var(--color-text)",
-          margin: 0,
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.25em",
         }}
       >
-        {WORDS.map((word) => (
-          <motion.span
-            key={word}
-            variants={reduced ? undefined : wordVariants}
-            style={{ display: "inline-block" }}
-          >
-            {word}
-          </motion.span>
-        ))}
-      </motion.h1>
+        Samuel Zhu
+      </h1>
 
-      {/* Accent rule */}
-      <motion.div
-        variants={reduced ? undefined : ruleVariants}
-        initial={reduced ? false : "hidden"}
-        animate="visible"
+      <div
         style={{
-          height: "2px",
-          width: "clamp(4rem, 15vw, 10rem)",
-          backgroundColor: "var(--color-accent-eng)",
-          marginTop: "2rem",
+          fontSize: "clamp(1rem, 0.5rem + 2vw, 1.4rem)",
           marginBottom: "2rem",
-        }}
-      />
-
-      {/* Subtitle */}
-      <motion.p
-        variants={reduced ? undefined : subtitleVariants}
-        initial={reduced ? false : "hidden"}
-        animate="visible"
-        style={{
-          fontSize: "clamp(1rem, 0.9rem + 1vw, 1.5rem)",
-          color: "var(--color-text-muted)",
-          maxWidth: "34ch",
-          lineHeight: 1.5,
-          margin: 0,
+          minHeight: "2em",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.4em",
         }}
       >
+        <span style={{ color: "var(--t-text-dim)" }}>~/</span>
+        <span style={{ color: "var(--t-accent-2)" }}>{displayed}</span>
+        <span className="cursor-blink" />
+      </div>
+
+      <p
+        style={{
+          color: "var(--t-text-muted)",
+          fontSize: "14px",
+          maxWidth: "480px",
+          lineHeight: 1.7,
+          margin: "0 0 2.5rem",
+        }}
+      >
+        Mechatronics Engineering @ University of Waterloo.
         Building at the intersection of robotics, AI, and music.
-      </motion.p>
+      </p>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={reduced ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
+      <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
+        {socialLinks.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            aria-label={link.label}
+            style={{
+              color: "var(--t-text-muted)",
+              textDecoration: "none",
+              fontSize: "13px",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4em",
+              transition: "color 0.15s",
+            }}
+            onMouseEnter={(e) => {
+              ;(e.currentTarget as HTMLAnchorElement).style.color =
+                "var(--t-accent)"
+            }}
+            onMouseLeave={(e) => {
+              ;(e.currentTarget as HTMLAnchorElement).style.color =
+                "var(--t-text-muted)"
+            }}
+          >
+            <span style={{ color: "var(--t-accent)" }}>→</span>
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <div
         style={{
-          position: "absolute",
-          bottom: "2.5rem",
-          left: "clamp(1.25rem, 5vw, 4rem)",
+          marginTop: "3rem",
+          color: "var(--t-text-dim)",
+          fontSize: "12px",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5em",
+          animation: "heroScrollHint 2s ease-in-out infinite",
         }}
       >
-        <ScrollIndicator />
-      </motion.div>
+        <span>scroll</span>
+        <span>↓</span>
+      </div>
+
+      <style>{`
+        @keyframes heroScrollHint {
+          0%, 100% { opacity: 0.3; transform: translateY(0); }
+          50% { opacity: 0.7; transform: translateY(4px); }
+        }
+      `}</style>
     </section>
   )
 }

@@ -10,7 +10,12 @@ interface SectionWrapperProps {
   altBg?: boolean
 }
 
-export function SectionWrapper({ id, className = "", children, altBg = false }: SectionWrapperProps) {
+export function SectionWrapper({
+  id,
+  className = "",
+  children,
+  altBg = false,
+}: SectionWrapperProps) {
   const reduced = useReducedMotion()
 
   return (
@@ -19,20 +24,20 @@ export function SectionWrapper({ id, className = "", children, altBg = false }: 
       aria-labelledby={`${id}-heading`}
       className={className}
       style={{
-        paddingTop: "var(--space-section)",
-        paddingBottom: "var(--space-section)",
-        backgroundColor: altBg ? "var(--color-surface-alt)" : "var(--color-surface)",
+        paddingTop: "clamp(4rem, 3rem + 5vw, 8rem)",
+        paddingBottom: "clamp(4rem, 3rem + 5vw, 8rem)",
+        backgroundColor: altBg ? "var(--t-surface)" : "var(--t-bg)",
       }}
-      initial={reduced ? false : { opacity: 0, y: 24 }}
+      initial={reduced ? false : { opacity: 0, y: 48 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: false, margin: "-60px" }}
     >
       <div
         style={{
-          maxWidth: "72rem",
+          maxWidth: "900px",
           marginInline: "auto",
-          paddingInline: "clamp(1.25rem, 5vw, 4rem)",
+          paddingInline: "clamp(1.25rem, 5vw, 3rem)",
         }}
       >
         {children}

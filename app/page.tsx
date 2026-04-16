@@ -1,23 +1,39 @@
-import { Nav } from "@/components/nav/Nav"
+import { Header } from "@/components/layout/Header"
 import { Hero } from "@/components/hero/Hero"
-import { About } from "@/components/about/About"
-import { Projects } from "@/components/projects/Projects"
-import { TechStack } from "@/components/tech-stack/TechStack"
-import { Interests } from "@/components/interests/Interests"
-import { Footer } from "@/components/footer/Footer"
+import { ProjectsSection } from "@/components/projects/ProjectsSection"
+import { InventorySection } from "@/components/inventory/InventorySection"
+import { SocialsSection } from "@/components/socials/SocialsSection"
+import { TerminalSection } from "@/components/terminal/TerminalSection"
+import { ExperienceSection } from "@/components/experience/ExperienceSection"
+import { ContactSection } from "@/components/contact/ContactSection"
 
 export default function Home() {
   return (
     <>
-      <Nav />
+      <div className="crt-overlay" aria-hidden="true" />
+      <Header />
       <main id="main-content">
         <Hero />
-        <About />
-        <Projects />
-        <TechStack />
-        <Interests />
+        <ProjectsSection />
+        <ExperienceSection />
+        <InventorySection />
+        <TerminalSection />
+        <SocialsSection />
+        <ContactSection />
       </main>
-      <Footer />
+      <footer
+        style={{
+          borderTop: "1px solid var(--t-border)",
+          padding: "1.5rem clamp(1.25rem, 5vw, 3rem)",
+          textAlign: "center",
+          fontSize: "12px",
+          color: "var(--t-text-dim)",
+        }}
+      >
+        <span style={{ color: "var(--t-accent)" }}>samuel@portfolio</span>
+        {" — "}
+        built with Next.js
+      </footer>
     </>
   )
 }
