@@ -1,4 +1,4 @@
-import { about, projects, techStack, socialLinks } from "@/lib/data"
+import { about, projects, techStack, socialLinks, experience, education } from "@/lib/data"
 
 export interface CommandResult {
   output: string
@@ -46,22 +46,24 @@ export function runCommand(input: string): CommandResult {
       return { output: ["Projects:", ...lines].join("\n\n") }
     }
 
-    case "experience":
+    case "experience": {
+      const expLines = experience.map(
+        (e) =>
+          `  ${pad(e.period, 22)} ${e.role} @ ${e.company}\n  ${" ".repeat(22)} ${e.tags.slice(0, 4).join(", ")}`
+      )
+      const eduLines = education.map(
+        (e) => `  ${pad(e.period, 22)} ${e.degree}\n  ${" ".repeat(22)} ${e.school}`
+      )
       return {
-        output: `Work Experience:
-
-  2024  PropSearchGPT Intern
-        AI-powered real estate chat platform — LangChain, FastAPI, MongoDB
-
-  2024  WATonomous ASD Member
-        Autonomous vehicle design team at the University of Waterloo
-
-  2023  FIRST Robotics
-        Competition robotics — design, build, and programming
-
-Education:
-  University of Waterloo — Mechatronics Engineering (current)`,
+        output: [
+          "Work Experience:",
+          ...expLines,
+          "",
+          "Education:",
+          ...eduLines,
+        ].join("\n"),
       }
+    }
 
     case "contact": {
       const links = socialLinks.map((s) => `  ${pad(s.label + ":", 12)} ${s.href}`)

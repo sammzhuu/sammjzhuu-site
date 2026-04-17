@@ -37,37 +37,30 @@ export function Terminal() {
     if (el) el.scrollTop = el.scrollHeight
   }
 
-  const prevMsgCount = useRef(0)
-  useEffect(() => {
-    if (messages.length <= prevMsgCount.current) return
-    const newMsgs = messages.slice(prevMsgCount.current)
-    prevMsgCount.current = messages.length
+  const addEntry = useCallback((entry: Omit<TerminalEntry, "id">) => {
+    setEntries((prev) => [...prev, { ...entry, id: makeId() }])
+  }, [])
 
-    const newEntries: TerminalEntry[] = newMsgs
-      .filter((m) => m.role === "assistant")
-      .map((m) => {
-        const textPart = m.parts?.find(
+  const prevStatus = useRef<string>("ready")
+  useEffect(() => {
+    if (prevStatus.current === "streaming" && status === "ready") {
+      const lastMsg = messages[messages.length - 1]
+      if (lastMsg?.role === "assistant") {
+        const textPart = lastMsg.parts?.find(
           (p): p is { type: "text"; text: string } => p.type === "text"
         )
-        return {
-          id: makeId(),
-          type: "output" as const,
+        addEntry({
+          type: "output",
           content: `SamBot: ${textPart?.text ?? ""}`,
-        }
-      })
-
-    if (newEntries.length > 0) {
-      setEntries((prev) => [...prev, ...newEntries])
+        })
+      }
     }
-  }, [messages])
+    prevStatus.current = status
+  }, [status, messages, addEntry])
 
   useEffect(() => {
     scrollToBottom()
   }, [entries, isChatLoading])
-
-  const addEntry = useCallback((entry: Omit<TerminalEntry, "id">) => {
-    setEntries((prev) => [...prev, { ...entry, id: makeId() }])
-  }, [])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

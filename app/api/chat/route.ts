@@ -1,10 +1,8 @@
 import { streamText } from "ai"
 import { z } from "zod"
-import { getAnthropicClient, CHAT_MODEL, MAX_TOKENS } from "@/lib/ai/anthropic"
+import { getGeminiClient, CHAT_MODEL, MAX_TOKENS } from "@/lib/ai/gemini"
 import { buildSystemPrompt } from "@/lib/ai/systemPrompt"
 import { NextRequest } from "next/server"
-
-export const runtime = "edge"
 
 const messagePartSchema = z.union([
   z.object({ type: z.literal("text"), text: z.string() }),
@@ -84,18 +82,33 @@ export async function POST(req: NextRequest) {
     })
   }
 
-  const coreMessages = parsed.data.messages.map((m) => ({
+  const allMessages = parsed.data.messages.map((m) => ({
     role: m.role,
     content: extractText(m),
   }))
 
+  // Gemini requires the first message to be from the user —
+  // drop any leading assistant messages (e.g. the initial welcome message).
+  const firstUserIdx = allMessages.findIndex((m) => m.role === "user")
+  const coreMessages = firstUserIdx >= 0 ? allMessages.slice(firstUserIdx) : allMessages
+
+  if (coreMessages.length === 0) {
+    return new Response(JSON.stringify({ error: "No user message found" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    })
+  }
+
   try {
-    const client = getAnthropicClient()
+    const client = getGeminiClient()
     const result = streamText({
       model: client(CHAT_MODEL),
       system: buildSystemPrompt(),
       messages: coreMessages,
       maxOutputTokens: MAX_TOKENS,
+      providerOptions: {
+        google: { thinkingConfig: { thinkingBudget: 0 } },
+      },
     })
 
     return result.toUIMessageStreamResponse()

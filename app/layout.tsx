@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Samuel Zhu",
+  title: "samuel zhu's site",
   description:
     "Mechatronics Engineering student at the University of Waterloo — building at the intersection of robotics, AI, and music.",
 }

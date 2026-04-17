@@ -1,43 +1,29 @@
 "use client"
 
+import { Home, FlaskConical, Sun } from "lucide-react"
 import { SectionWrapper } from "@/components/ui/SectionWrapper"
 import { Panel } from "@/components/ui/Panel"
+import { experience, education } from "@/lib/data"
 
-const EXPERIENCE = [
-  {
-    role: "Software Engineering Intern",
-    company: "PropSearchGPT",
-    period: "2024",
-    description:
-      "Built an AI-powered real estate chat platform. LangChain tool-calling with GPT-4o, custom full-text search on Tantivy, streaming responses with LangGraph checkpointing.",
-    tags: ["Python", "FastAPI", "LangGraph", "OpenAI", "MongoDB"],
-  },
-  {
-    role: "ASD Member",
-    company: "WATonomous — UWaterloo",
-    period: "2024",
-    description:
-      "Autonomous vehicle design team. Working on autonomous systems development with ROS 2.",
-    tags: ["Python", "ROS 2", "Autonomous Systems"],
-  },
-  {
-    role: "Robotics & Software Lead",
-    company: "FIRST Robotics",
-    period: "2023",
-    description:
-      "Designed, built, and programmed competition robots under real engineering constraints and strict deadlines.",
-    tags: ["Java", "Control Systems", "Mechanical Design"],
-  },
-]
+const EXPERIENCE_ICONS: Record<string, { Icon: React.ElementType; color: string }> = {
+  "PropertySearchGPT":                    { Icon: Home,          color: "#60a5fa" },
+  "CAMJ — University of Waterloo":        { Icon: FlaskConical,  color: "#818cf8" },
+  "Midnight Sun — UWaterloo Solar Car":   { Icon: Sun,           color: "#fbbf24" },
+}
 
-const EDUCATION = [
-  {
-    degree: "BASc Mechatronics Engineering",
-    school: "University of Waterloo",
-    period: "2024 – present",
-    note: "Mechatronics — mechanical, electrical, and software engineering combined.",
-  },
-]
+function CompanyIcon({ company }: { company: string }) {
+  const entry = EXPERIENCE_ICONS[company]
+  if (!entry) return null
+  const { Icon, color } = entry
+  return (
+    <Icon
+      size={13}
+      color={color}
+      aria-hidden="true"
+      style={{ flexShrink: 0, opacity: 0.85 }}
+    />
+  )
+}
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -63,7 +49,7 @@ export function ExperienceSection() {
         <Panel
           section="portfolio"
           subsection="experience"
-          meta={`${EXPERIENCE.length + EDUCATION.length} entries`}
+          meta={`${experience.length + education.length} entries`}
         >
         <div style={{ padding: "1.25rem" }}>
           <p style={{ fontSize: "11px", color: "var(--t-text-dim)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>// work</p>
@@ -74,7 +60,7 @@ export function ExperienceSection() {
             marginBottom: "2rem",
           }}
         >
-          {EXPERIENCE.map((item, i) => (
+          {experience.map((item, i) => (
             <div
               key={item.company}
               style={{
@@ -101,7 +87,7 @@ export function ExperienceSection() {
                     flexShrink: 0,
                   }}
                 />
-                {i < EXPERIENCE.length - 1 && (
+                {i < experience.length - 1 && (
                   <div
                     style={{
                       width: "1px",
@@ -117,7 +103,7 @@ export function ExperienceSection() {
               {/* Content */}
               <div
                 style={{
-                  paddingBottom: i < EXPERIENCE.length - 1 ? "2rem" : 0,
+                  paddingBottom: i < experience.length - 1 ? "2rem" : 0,
                 }}
               >
                 <div
@@ -145,9 +131,12 @@ export function ExperienceSection() {
                         fontSize: "13px",
                         color: "var(--t-accent-2)",
                         marginLeft: "8px",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "5px",
                       }}
                     >
-                      @ {item.company}
+                      @ <CompanyIcon company={item.company} />{item.company}
                     </span>
                   </div>
                   <span
@@ -192,7 +181,7 @@ export function ExperienceSection() {
 
         <SectionLabel>education</SectionLabel>
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "0.5rem" }}>
-          {EDUCATION.map((edu) => (
+          {education.map((edu) => (
             <div
               key={edu.school}
               style={{

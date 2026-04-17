@@ -6,7 +6,7 @@ import { Terminal } from "./Terminal"
 
 export function TerminalSection() {
   return (
-    <SectionWrapper id="terminal" altBg>
+    <SectionWrapper id="terminal">
       <Panel section="terminal" subsection="cli" meta="type 'help'">
         <Terminal />
       </Panel>

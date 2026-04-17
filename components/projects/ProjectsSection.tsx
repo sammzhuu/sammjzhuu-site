@@ -2,22 +2,32 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { siNextdotjs, siRos, siKicad, siFirst } from "simple-icons"
 import { SectionWrapper } from "@/components/ui/SectionWrapper"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/lib/data"
 
 const PROJECT_COLORS: Record<string, string> = {
-  PropSearchGPT:    "#60a5fa",
-  "WATonomous ASD": "#818cf8",
-  "FIRST Robotics": "#34d399",
+  "Full-Stack AI Platform":  "#60a5fa",
+  "LiDAR Navigation Robot":  "#22d3ee",
+  "3-Key Macropad":          "#818cf8",
+  "MechCat FTC Robot":       "#f97316",
 }
 
-function initials(title: string) {
+const PROJECT_ICONS: Record<string, { path: string; hex: string }> = {
+  "Full-Stack AI Platform":  siNextdotjs,
+  "LiDAR Navigation Robot":  siRos,
+  "3-Key Macropad":          siKicad,
+  "MechCat FTC Robot":       siFirst,
+}
+
+function abbr(title: string) {
   return title.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
 }
 
 function ProjectIcon({ title, active, onClick }: { title: string; active: boolean; onClick: () => void }) {
   const color = PROJECT_COLORS[title] ?? "#60a5fa"
+  const siIcon = PROJECT_ICONS[title]
   return (
     <button
       onClick={onClick}
@@ -28,10 +38,6 @@ function ProjectIcon({ title, active, onClick }: { title: string; active: boolea
         borderRadius: "6px",
         border: active ? `1px solid ${color}60` : "1px solid var(--t-border)",
         background: active ? `${color}18` : "transparent",
-        color: active ? color : "var(--t-text-dim)",
-        fontSize: "11px",
-        fontWeight: 700,
-        fontFamily: "var(--font-mono, monospace)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
@@ -40,7 +46,15 @@ function ProjectIcon({ title, active, onClick }: { title: string; active: boolea
         flexShrink: 0,
       }}
     >
-      {initials(title)}
+      {siIcon ? (
+        <svg viewBox="0 0 24 24" width="18" height="18" fill={active ? "#" + siIcon.hex : "var(--t-text-dim)"} aria-label={title}>
+          <path d={siIcon.path} />
+        </svg>
+      ) : (
+        <span style={{ fontSize: "11px", fontWeight: 700, color: active ? color : "var(--t-text-dim)", fontFamily: "var(--font-mono, monospace)" }}>
+          {abbr(title)}
+        </span>
+      )}
     </button>
   )
 }
@@ -172,14 +186,18 @@ export function ProjectsSection() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "9px",
-                          fontWeight: 700,
-                          color: PROJECT_COLORS[active.title] ?? "#60a5fa",
                           flexShrink: 0,
-                          fontFamily: "var(--font-mono, monospace)",
                         }}
                       >
-                        {initials(active.title)}
+                        {PROJECT_ICONS[active.title] ? (
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill={"#" + PROJECT_ICONS[active.title].hex} aria-hidden="true">
+                            <path d={PROJECT_ICONS[active.title].path} />
+                          </svg>
+                        ) : (
+                          <span style={{ fontSize: "9px", fontWeight: 700, color: PROJECT_COLORS[active.title] ?? "#60a5fa", fontFamily: "var(--font-mono, monospace)" }}>
+                            {abbr(active.title)}
+                          </span>
+                        )}
                       </div>
                       <h3
                         id="projects-heading"

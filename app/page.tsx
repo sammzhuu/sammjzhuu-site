@@ -14,10 +14,10 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <TerminalSection />
         <ProjectsSection />
         <ExperienceSection />
         <InventorySection />
-        <TerminalSection />
         <SocialsSection />
         <ContactSection />
       </main>
