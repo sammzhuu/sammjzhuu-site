@@ -24,9 +24,9 @@ export function SectionWrapper({
       aria-labelledby={`${id}-heading`}
       className={className}
       style={{
-        paddingTop: "clamp(4rem, 3rem + 5vw, 8rem)",
-        paddingBottom: "clamp(4rem, 3rem + 5vw, 8rem)",
-        backgroundColor: altBg ? "var(--t-surface)" : "var(--t-bg)",
+        paddingTop: "clamp(1.5rem, 1rem + 2vw, 3rem)",
+        paddingBottom: "clamp(1.5rem, 1rem + 2vw, 3rem)",
+        backgroundColor: altBg ? "var(--t-surface)" : "transparent",
       }}
       initial={reduced ? false : { opacity: 0, y: 48 }}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}

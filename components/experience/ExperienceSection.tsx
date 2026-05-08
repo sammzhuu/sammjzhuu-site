@@ -44,8 +44,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export function ExperienceSection() {
   return (
-    <div className="sheet-music-bg">
-      <SectionWrapper id="experience">
+    <SectionWrapper id="experience">
         <Panel
           section="portfolio"
           subsection="experience"
@@ -234,6 +233,5 @@ export function ExperienceSection() {
         </div>
         </Panel>
       </SectionWrapper>
-    </div>
   )
 }

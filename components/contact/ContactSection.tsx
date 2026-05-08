@@ -63,7 +63,7 @@ export function ContactSection() {
   }
 
   return (
-    <SectionWrapper id="contact" altBg>
+    <SectionWrapper id="contact">
       <Panel section="contact" subsection="message" meta="→ discord">
       <div style={{ padding: "1.25rem" }}>
       {formState === "success" ? (

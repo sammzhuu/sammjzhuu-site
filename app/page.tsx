@@ -1,5 +1,7 @@
 import { Header } from "@/components/layout/Header"
 import { Hero } from "@/components/hero/Hero"
+import { AboutSection } from "@/components/about/AboutSection"
+import { MusicNotes } from "@/components/ui/MusicNotes"
 import { ProjectsSection } from "@/components/projects/ProjectsSection"
 import { InventorySection } from "@/components/inventory/InventorySection"
 import { SocialsSection } from "@/components/socials/SocialsSection"
@@ -11,9 +13,11 @@ export default function Home() {
   return (
     <>
       <div className="crt-overlay" aria-hidden="true" />
+      <MusicNotes />
       <Header />
       <main id="main-content">
         <Hero />
+        <AboutSection />
         <TerminalSection />
         <ProjectsSection />
         <ExperienceSection />

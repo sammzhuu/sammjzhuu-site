@@ -164,7 +164,11 @@ export function ProjectsSection() {
                   }}
                 >
                   {/* Image */}
-                  <PlaceholderImage title={active.title} />
+                  <img
+                    src={`/images/${active.title.toLowerCase().replace(/\s+/g, "-")}.png`}
+                    alt={active.title}
+                    style={{ width: "100%", borderRadius: "3px", border: "1px solid var(--t-border)" }}
+                  />
 
                   {/* Info */}
                   <div>

@@ -36,7 +36,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  background-color: var(--t-bg);
+  background-color: #0f0f0f;
   color: var(--t-text);
   font-size: 14px;
   line-height: 1.6;
@@ -45,7 +45,33 @@ html {
 
 body {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  background-color: var(--t-bg);
+  background-color: #0f0f0f;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(255,255,255,0.025) 18px,
+      rgba(255,255,255,0.025) 19px,
+      transparent 19px,
+      transparent 36px,
+      rgba(255,255,255,0.025) 36px,
+      rgba(255,255,255,0.025) 37px,
+      transparent 37px,
+      transparent 54px,
+      rgba(255,255,255,0.025) 54px,
+      rgba(255,255,255,0.025) 55px,
+      transparent 55px,
+      transparent 72px,
+      rgba(255,255,255,0.025) 72px,
+      rgba(255,255,255,0.025) 73px,
+      transparent 73px,
+      transparent 90px,
+      rgba(255,255,255,0.025) 90px,
+      rgba(255,255,255,0.025) 91px,
+      transparent 91px,
+      transparent 110px
+    );
   color: var(--t-text);
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -120,45 +146,3 @@ body {
 
 /* ─── Sheet music background (experience section) ────────────────────── */
 
-.sheet-music-bg {
-  position: relative;
-}
-
-.sheet-music-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      180deg,
-      transparent 0px,
-      transparent 10px,
-      rgba(255,255,255,0.04) 10px,
-      rgba(255,255,255,0.04) 11px,
-      transparent 11px,
-      transparent 24px,
-      rgba(255,255,255,0.04) 24px,
-      rgba(255,255,255,0.04) 25px,
-      transparent 25px,
-      transparent 38px,
-      rgba(255,255,255,0.04) 38px,
-      rgba(255,255,255,0.04) 39px,
-      transparent 39px,
-      transparent 52px,
-      rgba(255,255,255,0.04) 52px,
-      rgba(255,255,255,0.04) 53px,
-      transparent 53px,
-      transparent 66px,
-      rgba(255,255,255,0.04) 66px,
-      rgba(255,255,255,0.04) 67px,
-      transparent 67px,
-      transparent 80px
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
-.sheet-music-bg > * {
-  position: relative;
-  z-index: 1;
-}

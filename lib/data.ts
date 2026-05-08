@@ -120,9 +120,9 @@ export const interests = {
 }
 
 export const socialLinks: SocialLink[] = [
-  { icon: "github", href: "https://github.com/sammjzhuu", label: "GitHub" },
-  { icon: "linkedin", href: "https://linkedin.com/in/sammjzhuu", label: "LinkedIn" },
-  { icon: "email", href: "mailto:zjiale1118@gmail.com", label: "Email" },
+  { icon: "github", href: "https://github.com/sammzhuu", label: "GitHub" },
+  { icon: "linkedin", href: "https://linkedin.com/in/sammzhuu", label: "LinkedIn" },
+  { icon: "email", href: "mailto:s274zhu@uwaterloo.ca", label: "Email" },
   { icon: "resume", href: "/Samuel-Zhu-Resume.pdf", label: "Resume" },
 ]
 
