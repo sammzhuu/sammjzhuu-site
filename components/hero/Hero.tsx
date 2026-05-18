@@ -5,10 +5,10 @@ import { socialLinks } from "@/lib/data"
 
 const ROLES = [
   "mechatronics engineer",
-  "software developer",
   "robotics builder",
   "musician",
   "autonomous systems",
+  "ml enthusiast",
 ]
 
 export function Hero() {

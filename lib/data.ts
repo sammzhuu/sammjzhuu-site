@@ -27,6 +27,7 @@ export interface ExperienceEntry {
   company: string
   period: string
   description: string
+  highlights?: string[]
   tags: string[]
 }
 
@@ -39,7 +40,7 @@ export interface EducationEntry {
 
 export const about = {
   heading: "About",
-  body: "I'm a Mechatronics Engineering student at the University of Waterloo — a program that sits at the intersection of mechanical design, electrical systems, and software. I'm drawn to problems that span those boundaries: autonomous systems that need to perceive and act in the physical world, AI tools that make complex information accessible, and the creative side of building things that actually work. Outside of engineering, music keeps me grounded and curious in a different way.",
+  body: "I'm a Mechatronics Engineering student at the University of Waterloo - a program that sits at the intersection of mechanical design, electrical systems, and software. I'm drawn to problems that span those boundaries: autonomous systems that need to perceive and act in the physical world, AI tools that make complex information accessible, and the creative side of building things that actually work. Outside of engineering, I'm a musician with 10+ year of piano experience, and currently exploring guitar in my spare time. I find that music and engineering feed into each other in unexpected ways - both require a mix of creativity and structure, and I love how they can be both deeply technical and deeply human at the same time.",
 }
 
 export const projects: Project[] = [
@@ -49,9 +50,9 @@ export const projects: Project[] = [
     description:
       "Cross-modal music recommendation system that maps album cover art to audio via a shared embedding space, enabling image-based music search by visual-aesthetic alignment.",
     highlights: [
-      "Trained dual 512→256 projection heads with InfoNCE contrastive loss to align frozen CLIP and CLAP encoders into a shared cross-modal embedding space; optimized with AdamW and cosine annealing LR",
-      "Curated a ~2,740-track J-pop/city pop dataset via iTunes Search API with 60+ targeted genre/aesthetic queries and deduplication by artist + title; built incremental embedding extraction to expand the dataset without full reprocessing",
-      "Indexed projected 256-dim embeddings in FAISS for real-time image-to-music retrieval; applied UMAP (cosine metric) for embedding space visualization with score-weighted position interpolation to place query images on the map at inference time",
+      "Trained dual 512→256 projection heads with InfoNCE contrastive loss to align frozen CLIP image and CLAP audio encoders into a shared cross-modal embedding space; optimized with AdamW and cosine annealing LR",
+      "Curated a ~2,740-track dataset via iTunes Search API with 60+ targeted genre/aesthetic queries and deduplication by artist + title; built incremental embedding extraction to expand the dataset without full reprocessing",
+      "Indexed projected 256-dim embeddings in FAISS for real-time image-to-music retrieval; applied UMAP (cosine metric) for embedding space visualization with score-weighted position interpolation to place query images on the map at inference",
     ],
     tags: ["Python", "PyTorch", "CLIP", "CLAP", "FAISS", "UMAP", "FastAPI", "HuggingFace"],
     status: "complete",
@@ -130,24 +131,35 @@ export const experience: ExperienceEntry[] = [
     role: "Full Stack + AI Engineering Intern",
     company: "PropertySearchGPT",
     period: "Jan 2026 – Apr 2026",
-    description:
-      "Built an AI-powered real estate chat platform: LangGraph streaming backend with multi-model routing, property price estimation using LightGBM/XGBoost/CatBoost with Optuna HPO and custom comparable scoring, a Tantivy full-text search engine, prompt injection guardrails, and an Expo mobile app + React/MapLibre web dashboard.",
+    description: "AI-powered real estate platform with multi-tier agentic routing, ML-based property price estimation, and injection-resistant chat.",
+    highlights: [
+      "Designed a two-tier LangGraph agent pipeline — a nano LLM classifies intent and short-circuits simple queries; a tool-calling model handles geo/listing requests, cutting inference cost on low-complexity traffic",
+      "Built a property price estimator ensembling LightGBM, XGBoost, and CatBoost with Optuna HPO (50 trials, 5-fold CV, temporal split) and custom comparable scoring with exponential decay weighting by distance and recency",
+      "Designed a dynamic ML + comparable alpha-blending algorithm that caps ML weight at 30% when high-quality nearby comps exist, with confidence scoring derived from MedAPE and comp proximity",
+      "Implemented a two-stage prompt injection guardrail: regex pre-filter over 15 attack patterns (zero-cost fast path), followed by an LLM classifier that fails open on outage to avoid blocking legitimate users",
+    ],
     tags: ["Python", "FastAPI", "LangGraph", "LangChain", "LightGBM", "XGBoost", "Optuna", "MongoDB"],
   },
   {
-    role: "Welding Research Assistant",
+    role: "Machine Learning Research Assistant",
     company: "CAMJ — University of Waterloo",
     period: "May 2025 – Aug 2025",
-    description:
-      "Investigated process parameters in Resistance Spot Welding to inform predictive quality control. Trained ML classifiers achieving 97% accuracy, fine-tuned YOLOv11 for weld defect detection (mAP@0.5 = 0.89), and built automated resistance curve analysis pipelines.",
+    description: "Developed predictive quality control systems for Resistance Spot Welding using supervised ML and computer vision.",
+    highlights: [
+      "Developed supervised ML classifiers (Random Forest, XGBoost) to predict weld quality from real-time process data, leveraging stratified k-fold CV, nested CV, and class weighting to address data imbalance; achieved 97% accuracy, 95% recall, and 96% F1-score on unseen data",
+      "Fine-tuned YOLOv11 with data augmentation to detect weld defects from etched cross-sections, achieving mAP@0.5 of 0.89; integrated OpenCV contour analysis to localize and visualize defect boundaries, improving recall by 40%",
+    ],
     tags: ["Python", "PyTorch", "YOLOv11", "scikit-learn", "XGBoost", "OpenCV"],
   },
   {
-    role: "Battery Team Member",
+    role: "Battery Hardware Developer",
     company: "Midnight Sun — UWaterloo Solar Car",
     period: "Sep 2024 – Apr 2025",
-    description:
-      "Designed a lightweight battery enclosure in SolidWorks (20% weight reduction), conducted cell configuration analysis to optimize energy density to 5.25 kWh, and implemented plated cell-level fusing to prevent thermal runaway.",
+    description: "Optimized battery pack energy density and cell safety systems for UWaterloo's solar car racing team.",
+    highlights: [
+      "Executed cell configuration analysis to optimize energy density, increasing the total battery pack capacity to 5.25 kWh",
+      "Implemented a plated cell-level fusing system to establish a physical barrier, successfully mitigating thermal runaway risk",
+    ],
     tags: ["SolidWorks", "Battery Design", "Mechanical Design"],
   },
 ]

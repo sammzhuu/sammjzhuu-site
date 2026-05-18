@@ -147,14 +147,42 @@ export function ExperienceSection() {
 
                 <p
                   style={{
-                    margin: "0 0 0.75rem",
+                    margin: item.highlights ? "0 0 0.4rem" : "0 0 0.75rem",
                     fontSize: "13px",
-                    color: "var(--t-text)",
+                    color: item.highlights ? "var(--t-text-muted)" : "var(--t-text)",
                     lineHeight: 1.6,
                   }}
                 >
                   {item.description}
                 </p>
+                {item.highlights && (
+                  <ul
+                    style={{
+                      margin: "0 0 0.75rem",
+                      padding: 0,
+                      listStyle: "none",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.4rem",
+                    }}
+                  >
+                    {item.highlights.map((h, idx) => (
+                      <li
+                        key={idx}
+                        style={{
+                          display: "flex",
+                          gap: "0.5rem",
+                          fontSize: "13px",
+                          color: "var(--t-text)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        <span style={{ color: "var(--t-accent)", flexShrink: 0, marginTop: "0.15em" }}>›</span>
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
                   {item.tags.map((tag) => (
