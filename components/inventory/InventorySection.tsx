@@ -57,6 +57,7 @@ const SI_ICONS: Record<string, { path: string; hex: string }> = {
   "scikit-learn":  siScikitlearn,
   OpenCV:          siOpencv,
   Claude:          siClaude,
+  HuggingFace:     siHuggingface,
   "GenAI / LLMs":  siHuggingface,
   "Gemini API":    siGooglegemini,
   MongoDB:         siMongodb,
@@ -96,6 +97,13 @@ const PUBLIC_ICONS: Record<string, string> = {
 const TEXT_FALLBACK: Record<string, string> = {
   "PCB Design": "PCB",
   "REST APIs":  "API",
+  LightGBM:     "GB",
+  XGBoost:      "XG",
+  FAISS:        "FA",
+  Optuna:       "OP",
+  UMAP:         "UM",
+  CLAP:         "CL",
+  CLIP:         "CP",
 }
 
 // ── Colors ────────────────────────────────────────────────────────────────────
@@ -119,7 +127,12 @@ const TECH_COLORS: Record<string, { bg: string; text: string }> = {
   "scikit-learn":  { bg: "#f7931e20", text: "#e8851a" },
   OpenCV:          { bg: "#5c3ee820", text: "#8070ee" },
   Claude:          { bg: "#d9775720", text: "#d97757" },
-  "GenAI / LLMs":  { bg: "#ffd21e20", text: "#c9a800" },
+  HuggingFace:     { bg: "#ffd21e20", text: "#c9a800" },
+  "GenAI / LLMs":  { bg: "#10a37f20", text: "#10a37f" },
+  XGBoost:         { bg: "#ff660020", text: "#ff7722" },
+  LightGBM:        { bg: "#1a6b3020", text: "#2ea84f" },
+  FAISS:           { bg: "#0668e120", text: "#3a8fe0" },
+  Optuna:          { bg: "#7c3aed20", text: "#9d72ef" },
   "Gemini API":    { bg: "#8e75b220", text: "#a992cc" },
   MongoDB:         { bg: "#47a24820", text: "#5cb85c" },
   PostgreSQL:      { bg: "#4169e120", text: "#6b8fd4" },

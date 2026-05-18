@@ -44,17 +44,16 @@ export const about = {
 
 export const projects: Project[] = [
   {
-    title: "Full-Stack AI Platform",
+    title: "Visual Music Recommender",
     context: "Personal Project",
     description:
-      "Full-stack AI productivity assistant with a multi-channel communication engine, modular widget dashboard, and serverless backend.",
+      "Cross-modal music recommendation system that maps album cover art to audio via a shared embedding space, enabling image-based music search by visual-aesthetic alignment.",
     highlights: [
-      "Gemini-powered communication engine extending to email, calendars, and enterprise platforms",
-      "Modular widget-based dashboard (calendar, notes, tasks, images) with TailwindCSS + shadcn/ui",
-      "Scalable monorepo architecture with CI/CD pipelines and Prisma-backed PostgreSQL",
-      "Serverless backend deployed on Vercel with Next.js App Router",
+      "Trained dual 512→256 projection heads with InfoNCE contrastive loss to align frozen CLIP and CLAP encoders into a shared cross-modal embedding space; optimized with AdamW and cosine annealing LR",
+      "Curated a ~2,740-track J-pop/city pop dataset via iTunes Search API with 60+ targeted genre/aesthetic queries and deduplication by artist + title; built incremental embedding extraction to expand the dataset without full reprocessing",
+      "Indexed projected 256-dim embeddings in FAISS for real-time image-to-music retrieval; applied UMAP (cosine metric) for embedding space visualization with score-weighted position interpolation to place query images on the map at inference time",
     ],
-    tags: ["TypeScript", "Next.js", "React", "Prisma", "Gemini API", "Vercel", "TailwindCSS"],
+    tags: ["Python", "PyTorch", "CLIP", "CLAP", "FAISS", "UMAP", "FastAPI", "HuggingFace"],
     status: "complete",
     featured: true,
   },
@@ -108,7 +107,7 @@ export const projects: Project[] = [
 export const techStack: TechGroup[] = [
   { group: "Languages", items: ["Python", "TypeScript", "Java", "C/C++", "HTML/CSS"] },
   { group: "Frameworks & Libraries", items: ["Next.js", "React", "Tailwind CSS", "Expo", "FastAPI", "LangChain", "LangGraph", "ROS 2"] },
-  { group: "ML & AI", items: ["PyTorch", "TensorFlow", "scikit-learn", "OpenCV", "Claude", "GenAI / LLMs"] },
+  { group: "ML & AI", items: ["PyTorch", "TensorFlow", "scikit-learn", "XGBoost", "LightGBM", "OpenCV", "FAISS", "HuggingFace", "Optuna", "Claude", "GenAI / LLMs"] },
   { group: "Data & Infrastructure", items: ["MongoDB", "PostgreSQL", "Docker", "Azure", "Polars"] },
   { group: "Hardware & Mechanical", items: ["SolidWorks", "OnShape", "KiCAD", "Arduino", "PCB Design"] },
   { group: "Tools & Concepts", items: ["Git", "Linux", "REST APIs"] },
@@ -132,8 +131,8 @@ export const experience: ExperienceEntry[] = [
     company: "PropertySearchGPT",
     period: "Jan 2026 – Apr 2026",
     description:
-      "Built an AI-powered real estate chat platform: LangGraph streaming backend with multi-model routing (classification vs. tool-calling), a custom Tantivy full-text search engine, geo tools via Google Maps API, prompt injection guardrails, and an Expo mobile app + React/MapLibre web dashboard.",
-    tags: ["Python", "FastAPI", "LangGraph", "LangChain", "OpenAI", "MongoDB", "Expo", "MapLibre"],
+      "Built an AI-powered real estate chat platform: LangGraph streaming backend with multi-model routing, property price estimation using LightGBM/XGBoost/CatBoost with Optuna HPO and custom comparable scoring, a Tantivy full-text search engine, prompt injection guardrails, and an Expo mobile app + React/MapLibre web dashboard.",
+    tags: ["Python", "FastAPI", "LangGraph", "LangChain", "LightGBM", "XGBoost", "Optuna", "MongoDB"],
   },
   {
     role: "Welding Research Assistant",

@@ -6,9 +6,9 @@ import { Panel } from "@/components/ui/Panel"
 import { socialLinks } from "@/lib/data"
 
 const SOCIAL_META: Record<string, { handle: string; color: string }> = {
-  GitHub:   { handle: "github.com/sammjzhuu", color: "#e8e8e8" },
-  LinkedIn: { handle: "in/sammjzhuu",          color: "#0a66c2" },
-  Email:    { handle: "zjiale1118@gmail.com",   color: "#60a5fa" },
+  GitHub:   { handle: "github.com/sammzhuu", color: "#e8e8e8" },
+  LinkedIn: { handle: "in/sammzhuu",          color: "#0a66c2" },
+  Email:    { handle: "s274zhu@uwaterloo.ca",   color: "#60a5fa" },
   Resume:   { handle: "samuel-zhu-resume.pdf",  color: "#818cf8" },
 }
 

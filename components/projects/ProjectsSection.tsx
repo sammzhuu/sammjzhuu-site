@@ -2,23 +2,27 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { siNextdotjs, siRos, siKicad, siFirst } from "simple-icons"
+import { siPytorch, siRos, siKicad, siFirst } from "simple-icons"
 import { SectionWrapper } from "@/components/ui/SectionWrapper"
 import { Panel } from "@/components/ui/Panel"
 import { projects } from "@/lib/data"
 
 const PROJECT_COLORS: Record<string, string> = {
-  "Full-Stack AI Platform":  "#60a5fa",
-  "LiDAR Navigation Robot":  "#22d3ee",
-  "3-Key Macropad":          "#818cf8",
-  "MechCat FTC Robot":       "#f97316",
+  "Visual Music Recommender": "#a855f7",
+  "LiDAR Navigation Robot":   "#22d3ee",
+  "3-Key Macropad":           "#818cf8",
+  "MechCat FTC Robot":        "#f97316",
 }
 
 const PROJECT_ICONS: Record<string, { path: string; hex: string }> = {
-  "Full-Stack AI Platform":  siNextdotjs,
-  "LiDAR Navigation Robot":  siRos,
-  "3-Key Macropad":          siKicad,
-  "MechCat FTC Robot":       siFirst,
+  "Visual Music Recommender": siPytorch,
+  "LiDAR Navigation Robot":   siRos,
+  "3-Key Macropad":           siKicad,
+  "MechCat FTC Robot":        siFirst,
+}
+
+const PROJECT_IMAGES: Record<string, string> = {
+  "Visual Music Recommender": "/images/vrec.png",
 }
 
 function abbr(title: string) {
@@ -165,7 +169,7 @@ export function ProjectsSection() {
                 >
                   {/* Image */}
                   <img
-                    src={`/images/${active.title.toLowerCase().replace(/\s+/g, "-")}.png`}
+                    src={PROJECT_IMAGES[active.title] ?? `/images/${active.title.toLowerCase().replace(/\s+/g, "-")}.png`}
                     alt={active.title}
                     style={{ width: "100%", borderRadius: "3px", border: "1px solid var(--t-border)" }}
                   />
